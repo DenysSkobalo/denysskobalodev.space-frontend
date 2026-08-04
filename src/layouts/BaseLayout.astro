@@ -1,0 +1,59 @@
+---
+import '../styles/global.css';
+import { DEFAULT_LOCALE, type Locale, LOCALES } from '../i18n/locales';
+
+interface Props {
+    title?: string;
+    description?: string;
+    lang?: Locale;
+}
+
+const {
+    title = 'Denys Skobalo — Backend Software Engineer & Architect',
+    description = 'Personal website and portfolio of Denys Skobalo',
+    lang = DEFAULT_LOCALE,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang} class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Перевірка та відновлення збереженої теми до завантаження сторінки (уникнення миготіння) -->
+    <script is:inline>
+        const theme = (() => {
+            if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+                return localStorage.getItem('theme');
+            }
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                return 'dark';
+            }
+            return 'light';
+        })();
+
+        if (theme === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans antialiased selection:bg-zinc-800 selection:text-white transition-colors duration-200">
+<div class="relative flex min-h-screen flex-col justify-between">
+    <slot name="header" />
+
+    <main class="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <slot />
+    </main>
+
+    <slot name="footer" />
+</div>
+</body>
+</html>

@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import { LOCALES, type Locale, DEFAULT_LOCALE } from '../../i18n/locales';
+import { careerUi, MOCK_CAREER_ITEMS } from '../../i18n/careerUi';
+
+export function getStaticPaths() {
+    return Object.keys(LOCALES).map((lang) => ({
+        params: { lang },
+    }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+
+const currentLang = (lang in careerUi ? lang : DEFAULT_LOCALE) as keyof typeof careerUi;
+const t = careerUi[currentLang];
+---
+
+<BaseLayout title={`Career Path — Denys Skobalo`} lang={lang}>
+    <Header slot="header" currentLang={lang} />
+
+    <div class="space-y-12 py-6">
+
+        <!-- HEADER BLOCK & CTAs FOR RECRUITERS -->
+        <div class="space-y-6">
+            <div class="space-y-2">
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+                    {t.title}
+                </h1>
+                <p class="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl">
+                    {t.subtitle}
+                </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+                <a
+                        href="#"
+                        onclick="alert('PDF Resume download will be available soon!')"
+                        class="px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-semibold text-xs hover:opacity-90 transition flex items-center gap-2"
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    {t.download_resume}
+                </a>
+
+                <button
+                        id="copy-email-btn"
+                        class="px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 font-semibold text-xs hover:border-zinc-300 dark:hover:border-zinc-700 transition flex items-center gap-2"
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                    {t.copy_email}
+                </button>
+
+                <button
+                        onclick="alert('Calendly booking integration pending.')"
+                        class="px-4 py-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold text-xs hover:bg-emerald-500/20 transition flex items-center gap-2"
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    {t.schedule_call}
+                </button>
+            </div>
+        </div>
+
+        <!-- IMPACT METRICS GRID -->
+        <div class="glow-card p-6 space-y-4">
+            <h2 class="text-xs font-mono font-bold tracking-wider uppercase text-zinc-500 dark:text-zinc-400">
+                ⚡ {t.impact_title}
+            </h2>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                <div class="inner-card p-4">
+                    <div class="text-2xl font-extrabold text-emerald-500 font-mono">{t.metric_1_val}</div>
+                    <p class="text-xs text-zinc-600 dark:text-zinc-400 mt-1 leading-snug">{t.metric_1_lbl}</p>
+                </div>
+
+                <div class="inner-card p-4">
+                    <div class="text-2xl font-extrabold text-cyan-500 font-mono">{t.metric_2_val}</div>
+                    <p class="text-xs text-zinc-600 dark:text-zinc-400 mt-1 leading-snug">{t.metric_2_lbl}</p>
+                </div>
+
+                <div class="inner-card p-4">
+                    <div class="text-2xl font-extrabold text-indigo-500 font-mono">{t.metric_3_val}</div>
+                    <p class="text-xs text-zinc-600 dark:text-zinc-400 mt-1 leading-snug">{t.metric_3_lbl}</p>
+                </div>
+
+                <div class="inner-card p-4">
+                    <div class="text-2xl font-extrabold text-amber-500 font-mono">{t.metric_4_val}</div>
+                    <p class="text-xs text-zinc-600 dark:text-zinc-400 mt-1 leading-snug">{t.metric_4_lbl}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- INTERACTIVE TIMELINE SECTION -->
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                <span>📍</span> {t.timeline_title}
+            </h2>
+
+            <div class="relative border-l-2 border-zinc-200 dark:border-zinc-800 ml-3 space-y-8">
+                {MOCK_CAREER_ITEMS.map((item) => (
+                        <div class="relative pl-6 group">
+                            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full border-2 border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 group-hover:border-emerald-500 group-hover:bg-emerald-500 transition-colors"></div>
+
+                            <div class="glow-card p-6 space-y-4">
+                                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-200 dark:border-zinc-800 pb-3">
+                                    <div>
+                                        <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+                                            {item.role}
+                                        </h3>
+                                        <div class="text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                                            {item.company} • <span class="text-zinc-500">{item.location}</span>
+                                        </div>
+                                    </div>
+
+                                    <span class="font-mono text-xs px-2.5 py-1 rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400">
+                  {item.period}
+                </span>
+                                </div>
+
+                                <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                                    {item.description}
+                                </p>
+
+                                <div class="space-y-1.5 pt-1">
+                                    <span class="text-[11px] font-mono font-bold text-zinc-400 uppercase">Key Achievements:</span>
+                                    <ul class="list-disc list-inside text-xs text-zinc-600 dark:text-zinc-400 space-y-1">
+                                        {item.achievements.map((ach) => (
+                                                <li>{ach}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                <div class="flex flex-wrap gap-1.5 pt-2">
+                                    {item.stack.map((tech) => (
+                                            <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400">
+                    {tech}
+                  </span>
+                                    ))}
+                                </div>
+                            </div>
+
+                        </div>
+                ))}
+            </div>
+        </div>
+
+    </div>
+
+    <footer slot="footer" class="border-t border-zinc-200 dark:border-zinc-800 py-8 text-center text-xs text-zinc-500">
+        © {new Date().getFullYear()} Denys Skobalo. Career Path Hub.
+    </footer>
+</BaseLayout>
+
+<script>
+    const copyBtn = document.getElementById('copy-email-btn');
+
+    copyBtn?.addEventListener('click', async () => {
+        try {
+            await navigator.clipboard.writeText('denys.skobalo@example.com');
+
+            // Тимчасова зміна тексту кнопки замість alert
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerText = 'Copied!';
+            setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+            }, 2000);
+        } catch (err) {
+            console.error('Failed to copy: ', err);
+        }
+    });
+</script>

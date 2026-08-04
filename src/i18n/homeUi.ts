@@ -1,0 +1,86 @@
+export const homeUi = {
+    en: {
+        hero_badge: 'Available for Select Senior Roles & Architecture Consulting',
+        hero_title_1: 'Senior Backend Engineer',
+        hero_title_2: '& Distributed Systems Architect',
+        hero_desc: 'I design, scale, and optimize high-load microservices, cloud infrastructure, and resilient APIs. Focused on zero-downtime performance and maintainable clean code.',
+        cta_career: 'View Career Path',
+        cta_projects: 'Explore Products & Stack',
+
+        // Telemetry Block
+        telemetry_title: 'System Telemetry & Live Stats',
+        telemetry_status: 'SYSTEM STATUS: OPTIMAL',
+        metric_exp: 'Years Experience',
+        metric_uptime: 'Target Architecture Uptime',
+        metric_stack: 'Core Tech Stack',
+        metric_architecture: 'Primary Pattern',
+
+        // Bento Grid Cards
+        bento_career_title: 'Career Path & Resume',
+        bento_career_desc: 'Detailed work history, key impacts, tech decisions, and track record for recruiters.',
+        bento_stack_title: 'Tech Stack & Radar',
+        bento_stack_desc: 'Deep dive into databases, message brokers, cloud providers, and backend frameworks.',
+        bento_research_title: 'Research & Papers',
+        bento_research_desc: 'Articles on distributed consensus, system design, performance benchmarks, and RFCs.',
+        bento_products_title: 'Products & Projects',
+        bento_products_desc: 'SaaS products, open-source libraries, microservices, and architectural blueprints.',
+        bento_socials_title: 'Socials & Contact',
+        bento_socials_desc: 'Direct channels, GitHub code repositories, LinkedIn profile, and email touchpoints.',
+    },
+    uk: {
+        hero_badge: 'Відкритий до викликів: Senior Roles & Architecture Consulting',
+        hero_title_1: 'Senior Backend Engineer',
+        hero_title_2: '& System Architect',
+        hero_desc: 'Проєктую, масштабую та оптимізую високонавантажені мікросервіси, хмарну інфраструктуру та відмовостійкі API. Фокус на продуктивності 24/7 та чистій архітектурі.',
+        cta_career: 'Кар\'єрний Шлях (для Рекрутерів)',
+        cta_projects: 'Проєкти та Стек',
+
+        // Telemetry Block
+        telemetry_title: 'Телеметрія та Системні Метрики',
+        telemetry_status: 'СТАТУС СИСТЕМИ: ОПТИМАЛЬНИЙ',
+        metric_exp: 'Років Досвіду',
+        metric_uptime: 'Цільовий Uptime Архітектури',
+        metric_stack: 'Основа Стеку',
+        metric_architecture: 'Основний Шаблон',
+
+        // Bento Grid Cards
+        bento_career_title: 'Кар\'єра та Резюме',
+        bento_career_desc: 'Детальна історія роботи, досягнення, архітектурні рішення та інформація для рекрутерів.',
+        bento_stack_title: 'Стек Технологій',
+        bento_stack_desc: 'Бази даних, брокери повідомлень, хмарні провайдери та бэкенд фреймворки.',
+        bento_research_title: 'Дослідження та Публікації',
+        bento_research_desc: 'Статті про розподілені системи, системний дизайн, бенчмарки та RFC.',
+        bento_products_title: 'Продукти та Проєкти',
+        bento_products_desc: 'SaaS продукти, open-source бібліотеки, мікросервіси та архітектурні шаблони.',
+        bento_socials_title: 'Контакти та Соцмережі',
+        bento_socials_desc: 'Прямий зв\'язок, репозиторії GitHub, профіль LinkedIn та електронна пошта.',
+    },
+    fr: {
+        hero_badge: 'Disponible pour opportunités Senior & Conseil en Architecture',
+        hero_title_1: 'Senior Backend Engineer',
+        hero_title_2: '& Distributed Systems Architect',
+        hero_desc: 'Conception et optimisation de microservices à haute charge et d\'infrastructures cloud résilientes.',
+        cta_career: 'Parcours & CV',
+        cta_projects: 'Voir les Produits',
+
+        // Telemetry Block
+        telemetry_title: 'Télémétrie Système',
+        telemetry_status: 'STATUT: OPTIMAL',
+        metric_exp: 'Années d\'expérience',
+        metric_uptime: 'Uptime Cible',
+        metric_stack: 'Technologies Clés',
+        metric_architecture: 'Architecture',
+
+        // Bento Grid Cards
+        bento_career_title: 'Parcours & Recruteurs',
+        bento_career_desc: 'Historique professionnel, impact technique et détails pour les recruteurs.',
+        bento_stack_title: 'Stack Technique',
+        bento_stack_desc: 'Bases de données, message brokers et infrastructure cloud.',
+        bento_research_title: 'Recherches & Articles',
+        bento_research_desc: 'Design de systèmes, performances et architectures distribuées.',
+        bento_products_title: 'Produits & Projets',
+        bento_products_desc: 'Applications SaaS, bibliothèques open-source et projets backend.',
+        bento_socials_title: 'Contact & Réseaux',
+        bento_socials_desc: 'GitHub, LinkedIn et canaux de communication directs.',
+    },
+} as const;

@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/* Налаштування темного режиму для Tailwind v4 */
+@variant dark (&:where(.dark, .dark *));
+
+@layer base {
+    :root {
+        --bg-grid-color: rgba(24, 24, 27, 0.05);
+    }
+
+    .dark {
+        --bg-grid-color: rgba(255, 255, 255, 0.04);
+    }
+
+    body {
+        background-color: #ffffff;
+        color: #09090b;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        background-image: radial-gradient(var(--bg-grid-color) 1px, transparent 1px);
+        background-size: 24px 24px;
+        transition: background-color 0.2s, color 0.2s;
+    }
+
+    .dark body {
+        background-color: #09090b;
+        color: #f4f4f5;
+    }
+}
+
+/* 🎯 Контрастні картки для темного/світлого режиму */
+.glow-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    border: 1px solid #e4e4e7;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.dark .glow-card {
+    border-color: #27272a;
+    background-color: #121215;
+}
+
+.glow-card:hover {
+    border-color: #d4d4d8;
+}
+
+.dark .glow-card:hover {
+    border-color: #3f3f46;
+}
+
+/* Внутрішні блоки (Metrics / Inner items) */
+.inner-card {
+    border-radius: 0.75rem;
+    border: 1px solid #f4f4f5;
+    background-color: #fafafa;
+}
+
+.dark .inner-card {
+    border-color: #18181b;
+    background-color: #09090b;
+}
+
+/* Анімація каруселі */
+@keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover {
+    animation-play-state: paused;
+}

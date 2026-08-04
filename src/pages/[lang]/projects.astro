@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { LOCALES, type Locale, DEFAULT_LOCALE } from '../../i18n/locales';
+import { projectsUi, MOCK_PROJECTS } from '../../i18n/projectsUi';
+
+export function getStaticPaths() {
+    return Object.keys(LOCALES).map((lang) => ({
+        params: { lang },
+    }));
+}
+const { lang } = Astro.params as { lang: Locale };
+
+const currentLang = (lang in projectsUi ? lang : DEFAULT_LOCALE) as keyof typeof projectsUi;
+const t = projectsUi[currentLang];
+---
+
+<BaseLayout title="Products & SaaS — Denys Skobalo" lang={lang}>
+    <Header slot="header" currentLang={lang} />
+
+    <div class="space-y-8 py-6">
+
+        <!-- HEADER WITH PROPER SPACING & BORDER -->
+        <div class="space-y-4 pb-6 mb-8 border-b border-zinc-200 dark:border-zinc-800">
+            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-500 text-[11px] font-mono font-bold">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                PRODUCTS & SAAS PORTFOLIO
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+                {t.title}
+            </h1>
+            <p class="text-sm sm:text-base text-zinc-600 dark:text-zinc-400">
+                {t.subtitle}
+            </p>
+        </div>
+
+        <!-- BENTO GRID SYSTEM (СІТКА ЯК НА ГОЛОВНІЙ) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {MOCK_PROJECTS.map((project) => (
+                    <ProjectCard
+                            project={project}
+                            visitText={t.visit_btn}
+                            codeText={t.code_btn}
+                    />
+            ))}
+        </div>
+
+    </div>
+
+    <footer slot="footer" class="border-t border-zinc-200 dark:border-zinc-800 py-8 text-center text-xs text-zinc-500">
+        © {new Date().getFullYear()} Denys Skobalo. Shipping Hub.
+    </footer>
+</BaseLayout>

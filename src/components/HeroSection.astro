@@ -1,0 +1,179 @@
+---
+import { type Locale, DEFAULT_LOCALE } from '../i18n/locales';
+import { homeUi } from '../i18n/homeUi';
+import { MOCK_TECH_STACK } from '../i18n/stackUi';
+import TechCarousel from './TechCarousel.svelte';
+
+interface Props {
+    lang?: Locale;
+}
+
+const { lang = DEFAULT_LOCALE } = Astro.props;
+const t = homeUi[lang] || homeUi[DEFAULT_LOCALE];
+
+const doubleStack = [...MOCK_TECH_STACK, ...MOCK_TECH_STACK];
+
+const bentoCards = [
+    {
+        href: `/${lang}/career`,
+        title: t.bento_career_title,
+        desc: t.bento_career_desc,
+        tag: 'RECRUITERS HUB',
+        icon: '💼',
+        colSpan: 'md:col-span-2',
+    },
+    {
+        href: `/${lang}/stack`,
+        title: t.bento_stack_title,
+        desc: t.bento_stack_desc,
+        tag: 'TECH RADAR',
+        icon: '⚡',
+        colSpan: 'md:col-span-1',
+    },
+    {
+        href: `/${lang}/projects`,
+        title: t.bento_products_title,
+        desc: t.bento_products_desc,
+        tag: 'SAAS SHOWCASE',
+        icon: '🚀',
+        colSpan: 'md:col-span-1',
+    },
+    {
+        href: `/${lang}/research`,
+        title: t.bento_research_title,
+        desc: t.bento_research_desc,
+        tag: 'RFCS & ARTICLES',
+        icon: '🧠',
+        colSpan: 'md:col-span-1',
+    },
+    {
+        href: `/${lang}/socials`,
+        title: t.bento_socials_title,
+        desc: t.bento_socials_desc,
+        tag: 'GET IN TOUCH',
+        icon: '🌐',
+        colSpan: 'md:col-span-1',
+    },
+];
+---
+
+<section class="space-y-10 py-6 sm:py-8">
+
+    <!-- 1. HERO MAIN TITLE & CTA -->
+    <div class="text-center max-w-3xl mx-auto space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-medium">
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+      </span>
+            {t.hero_badge}
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.15]">
+            {t.hero_title_1} <br />
+            <span class="text-gradient">
+        {t.hero_title_2}
+      </span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal max-w-2xl mx-auto">
+            {t.hero_desc}
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+            <a
+                    href={`/${lang}/career`}
+                    class="px-6 py-3 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-semibold text-sm hover:opacity-90 transition flex items-center gap-2 group"
+            >
+                <span>{t.cta_career}</span>
+                <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </a>
+
+            <a
+                    href={`/${lang}/projects`}
+                    class="px-6 py-3 rounded-xl border border-zinc-300 dark:border-zinc-800 bg-zinc-100/50 dark:bg-zinc-900/50 text-zinc-900 dark:text-zinc-100 font-semibold text-sm hover:bg-zinc-200/50 dark:hover:bg-zinc-800 transition"
+            >
+                {t.cta_projects}
+            </a>
+        </div>
+    </div>
+
+    <!-- 2. BENTO GRID CONTAINER -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <!-- BLOCK A: Dynamic Tech Carousel Stream (Full Width Grid Item) -->
+        <div class="md:col-span-3">
+            <TechCarousel client:load items={doubleStack} currentLang={lang} />
+        </div>
+
+        <!-- BLOCK B: Telemetry Panel (2 Columns) -->
+        <div class="glow-card p-6 md:col-span-3 space-y-4">
+            <div class="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
+        <span class="font-mono text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+          ⚡ {t.telemetry_title}
+        </span>
+                <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 font-semibold">
+          {t.telemetry_status}
+        </span>
+            </div>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+                <div class="inner-card p-3.5 space-y-1">
+                    <span class="text-[11px] text-zinc-500 block">{t.metric_exp}</span>
+                    <div class="text-xl font-bold text-zinc-900 dark:text-zinc-100">8+ YRS</div>
+                    <span class="text-[10px] text-emerald-500">↑ Distributed Systems</span>
+                </div>
+
+                <div class="inner-card p-3.5 space-y-1">
+                    <span class="text-[11px] text-zinc-500 block">{t.metric_uptime}</span>
+                    <div class="text-xl font-bold text-emerald-500">99.99%</div>
+                    <span class="text-[10px] text-zinc-400">Target SLA</span>
+                </div>
+
+                <div class="inner-card p-3.5 space-y-1">
+                    <span class="text-[11px] text-zinc-500 block">{t.metric_stack}</span>
+                    <div class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Go / Node / Rust</div>
+                    <span class="text-[10px] text-zinc-400">PostgreSQL, Kafka</span>
+                </div>
+
+                <div class="inner-card p-3.5 space-y-1">
+                    <span class="text-[11px] text-zinc-500 block">{t.metric_architecture}</span>
+                    <div class="text-xl font-bold text-indigo-500">Event-Driven</div>
+                    <span class="text-[10px] text-zinc-400">CQRS & Microservices</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOCK C: Bento Navigation Cards -->
+        {bentoCards.map((card) => (
+                <a
+                        href={card.href}
+                        class={`glow-card p-6 ${card.colSpan} flex flex-col justify-between group`}
+                >
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl">{card.icon}</span>
+                            <span class="font-mono text-[10px] font-bold px-2.5 py-1 rounded-full border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-500 dark:text-zinc-400">
+              {card.tag}
+            </span>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-emerald-500 transition-colors">
+                            {card.title}
+                        </h3>
+
+                        <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                            {card.desc}
+                        </p>
+                    </div>
+
+                    <div class="pt-4 flex items-center text-xs font-semibold text-zinc-900 dark:text-zinc-200 group-hover:translate-x-1 transition-transform">
+                        <span>Explore</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </div>
+                </a>
+        ))}
+
+    </div>
+
+</section>

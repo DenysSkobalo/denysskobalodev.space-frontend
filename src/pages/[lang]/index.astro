@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import { LOCALES, type Locale, DEFAULT_LOCALE } from '../../i18n/locales';
+
+export function getStaticPaths() {
+    return Object.keys(LOCALES).map((lang) => ({
+        params: { lang },
+    }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+
+const validLang = (lang in LOCALES ? lang : DEFAULT_LOCALE) as Locale;
+---
+
+<BaseLayout title="Denys Skobalo — Senior Backend Engineer & System Architect" lang={validLang}>
+    <Header slot="header" currentLang={validLang} />
+
+    <HeroSection lang={validLang} />
+
+    <footer slot="footer" class="border-t border-zinc-200 dark:border-zinc-800 py-8 text-center text-xs text-zinc-500">
+        © {new Date().getFullYear()} Denys Skobalo. All rights reserved.
+    </footer>
+</BaseLayout>
