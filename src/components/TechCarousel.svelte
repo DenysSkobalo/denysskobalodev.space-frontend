@@ -29,15 +29,6 @@
         if (autoScrollInterval) clearInterval(autoScrollInterval);
     }
 
-    function scroll(direction: 'left' | 'right') {
-        if (!container) return;
-        const amount = 280;
-        container.scrollBy({
-            left: direction === 'left' ? -amount : amount,
-            behavior: 'smooth'
-        });
-    }
-
     function handleMouseDown(e: MouseEvent) {
         isMouseDown = true;
         isDragging = false;
@@ -92,29 +83,9 @@
             Interactive Tech Stream
         </span>
         <div class="flex items-center gap-2">
-            <span class="text-[11px] font-mono text-zinc-500 hidden sm:inline mr-2">
+            <span class="text-[11px] font-mono text-zinc-500">
                 Drag or swipe to scroll
             </span>
-            <button
-                    on:click={() => scroll('left')}
-                    aria-label="Scroll left"
-                    type="button"
-                    class="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600 transition cursor-pointer"
-            >
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                </svg>
-            </button>
-            <button
-                    on:click={() => scroll('right')}
-                    aria-label="Scroll right"
-                    type="button"
-                    class="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600 transition cursor-pointer"
-            >
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-            </button>
         </div>
     </div>
 
@@ -141,12 +112,12 @@
                     class="group relative flex items-center gap-3 px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/60 hover:border-emerald-500/50 hover:scale-105 transition-all duration-200 shrink-0"
             >
                 <span class="text-2xl">{tech.icon}</span>
-                <div class="text-left">
-                    <div class="text-xs font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-emerald-500 transition-colors">
+                <div class="space-y-0.5">
+                    <h4 class="text-xs font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-emerald-500 transition-colors whitespace-nowrap">
                         {tech.name}
-                    </div>
-                    <div class="text-[10px] font-mono text-zinc-500">
-                        {tech.level} • {tech.experienceYears}y exp
+                    </h4>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] font-mono text-zinc-500">{tech.level}</span>
                     </div>
                 </div>
 
