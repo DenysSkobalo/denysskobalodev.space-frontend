@@ -7,7 +7,6 @@ export const homeUi = {
         cta_career: 'View Career Path',
         cta_projects: 'Explore Products & Stack',
 
-        // Telemetry Block
         telemetry_title: 'System Telemetry & Live Stats',
         telemetry_status: 'SYSTEM STATUS: OPTIMAL',
         metric_exp: 'Years Experience',
@@ -15,7 +14,6 @@ export const homeUi = {
         metric_stack: 'Core Tech Stack',
         metric_architecture: 'Primary Pattern',
 
-        // Bento Grid Cards
         bento_career_title: 'Career Path & Resume',
         bento_career_desc: 'Detailed work history, key impacts, tech decisions, and track record for recruiters.',
         bento_stack_title: 'Tech Stack & Radar',
@@ -35,7 +33,6 @@ export const homeUi = {
         cta_career: 'Кар\'єрний Шлях (для Рекрутерів)',
         cta_projects: 'Проєкти та Стек',
 
-        // Telemetry Block
         telemetry_title: 'Телеметрія та Системні Метрики',
         telemetry_status: 'СТАТУС СИСТЕМИ: ОПТИМАЛЬНИЙ',
         metric_exp: 'Років Досвіду',
@@ -43,7 +40,6 @@ export const homeUi = {
         metric_stack: 'Основа Стеку',
         metric_architecture: 'Основний Шаблон',
 
-        // Bento Grid Cards
         bento_career_title: 'Кар\'єра та Резюме',
         bento_career_desc: 'Детальна історія роботи, досягнення, архітектурні рішення та інформація для рекрутерів.',
         bento_stack_title: 'Стек Технологій',
@@ -63,7 +59,6 @@ export const homeUi = {
         cta_career: 'Parcours & CV',
         cta_projects: 'Voir les Produits',
 
-        // Telemetry Block
         telemetry_title: 'Télémétrie Système',
         telemetry_status: 'STATUT: OPTIMAL',
         metric_exp: 'Années d\'expérience',
@@ -71,7 +66,6 @@ export const homeUi = {
         metric_stack: 'Technologies Clés',
         metric_architecture: 'Architecture',
 
-        // Bento Grid Cards
         bento_career_title: 'Parcours & Recruteurs',
         bento_career_desc: 'Historique professionnel, impact technique et détails pour les recruteurs.',
         bento_stack_title: 'Stack Technique',

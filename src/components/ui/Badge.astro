@@ -1,0 +1,23 @@
+---
+import StatusDot from './StatusDot.astro';
+
+interface Props {
+    variant?: 'emerald' | 'amber' | 'indigo' | 'zinc';
+    pulse?: boolean;
+    class?: string;
+}
+
+const { variant = 'emerald', pulse = false, class: className = '' } = Astro.props;
+
+const variantStyles = {
+    emerald: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+    amber: 'border-amber-500/30 bg-amber-500/10 text-amber-500',
+    indigo: 'border-indigo-500/30 bg-indigo-500/10 text-indigo-400',
+    zinc: 'border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-500 dark:text-zinc-400',
+};
+---
+
+<div class={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full border text-[11px] font-mono font-bold ${variantStyles[variant]} ${className}`}>
+    {pulse && <StatusDot color={variant === 'zinc' ? 'emerald' : variant} size="sm" />}
+    <slot />
+</div>

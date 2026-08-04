@@ -1,0 +1,12 @@
+---
+interface Props {
+    label: string;
+    prefix?: string;
+}
+
+const { label, prefix = '' } = Astro.props;
+---
+
+<span class="text-[10px] font-mono px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 text-zinc-600 dark:text-zinc-400 font-medium">
+    {prefix}{label}
+</span>

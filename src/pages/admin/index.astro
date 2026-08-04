@@ -1,0 +1,61 @@
+---
+export const prerender = false;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AdminHeader from '@/components/admin/AdminHeader.astro';
+---
+
+<BaseLayout title="Admin Dashboard — Denys Skobalo">
+    <div class="space-y-8 py-6 max-w-5xl mx-auto">
+        <AdminHeader title="Content Management" />
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="glow-card p-6 flex flex-col justify-between space-y-6">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-3xl">🚀</span>
+                        <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-500">
+                            CRUD MODULE
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-bold text-zinc-900 dark:text-white">SaaS & Open Source Projects</h2>
+                    <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                        Add, edit, or archive your portfolio products, SaaS apps, and GitHub repositories.
+                    </p>
+                </div>
+
+                <div class="flex gap-3">
+                    <a
+                            href="/admin/projects"
+                            class="flex-1 py-2.5 text-center rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold text-xs hover:opacity-90 transition"
+                    >
+                        Manage Projects
+                    </a>
+                </div>
+            </div>
+
+            <div class="glow-card p-6 flex flex-col justify-between space-y-6">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-3xl">🧠</span>
+                        <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-500">
+                            MARKDOWN EDITOR
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-bold text-zinc-900 dark:text-white">Research & RFC Papers</h2>
+                    <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                        Publish architectural blueprints, system design notes, benchmarks, and RFC articles.
+                    </p>
+                </div>
+
+                <div class="flex gap-3">
+                    <a
+                            href="/admin/research"
+                            class="flex-1 py-2.5 text-center rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold text-xs hover:opacity-90 transition"
+                    >
+                        Manage Papers
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</BaseLayout>

@@ -1,0 +1,54 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import TechTag from '@/components/ui/TechTag.astro';
+import Footer from '@/components/Footer.astro';
+import { LOCALES } from '@/i18n/locales';
+import { MOCK_TECH_STACK } from '@/i18n/stackUi';
+import { getValidLocale } from '@/utils/i18n';
+
+export function getStaticPaths() {
+    return Object.keys(LOCALES).flatMap((lang) =>
+        MOCK_TECH_STACK.map((tech) => ({
+            params: { lang, slug: tech.slug },
+            props: { tech },
+        }))
+    );
+}
+
+const { lang } = Astro.params;
+const { tech } = Astro.props;
+const validLang = getValidLocale(lang);
+---
+
+<BaseLayout title={`${tech.name} — Tech Notes | Denys Skobalo`} lang={validLang}>
+    <Header slot="header" currentLang={validLang} />
+
+    <div class="space-y-8 py-6 max-w-3xl mx-auto">
+        <a href={`/${validLang}/stack`} class="text-xs font-semibold text-emerald-500 hover:underline">
+            ← Back to Tech Stack
+        </a>
+
+        <div class="flex items-center gap-4">
+            <span class="text-5xl">{tech.icon}</span>
+            <div>
+                <h1 class="text-3xl font-extrabold text-zinc-900 dark:text-white">{tech.name}</h1>
+                <p class="font-mono text-xs text-emerald-500 mt-1">{tech.level} • {tech.experienceYears} Years Experience</p>
+            </div>
+        </div>
+
+        <div class="glow-card p-6 space-y-4">
+            <h2 class="text-sm font-bold uppercase tracking-wider font-mono text-zinc-400">Overview & Architectural Context</h2>
+            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                {tech.shortDesc}
+            </p>
+            <div class="pt-4 border-t border-zinc-200 dark:border-zinc-800 flex items-center gap-2">
+                <span class="text-xs font-mono text-zinc-400">Category:</span>
+                <TechTag label={tech.category} />
+            </div>
+        </div>
+    </div>
+
+    <Footer slot="footer" text="Denys Skobalo. Architecture Radar." />
+</BaseLayout>

@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* Налаштування темного режиму для Tailwind v4 */
 @variant dark (&:where(.dark, .dark *));
 
 @layer base {
@@ -28,7 +27,6 @@
     }
 }
 
-/* 🎯 Контрастні картки для темного/світлого режиму */
 .glow-card {
     position: relative;
     overflow: hidden;
@@ -51,7 +49,6 @@
     border-color: #3f3f46;
 }
 
-/* Внутрішні блоки (Metrics / Inner items) */
 .inner-card {
     border-radius: 0.75rem;
     border: 1px solid #f4f4f5;
@@ -63,7 +60,6 @@
     background-color: #09090b;
 }
 
-/* Анімація каруселі */
 @keyframes marquee {
     0% { transform: translateX(0%); }
     100% { transform: translateX(-50%); }

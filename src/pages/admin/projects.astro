@@ -1,0 +1,13 @@
+---
+export const prerender = false;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AdminHeader from '@/components/admin/AdminHeader.astro';
+import ProjectManager from '@/components/admin/ProjectManager.svelte';
+---
+
+<BaseLayout title="Admin — Manage Projects">
+    <div class="space-y-6 py-6 max-w-5xl mx-auto">
+        <AdminHeader title="Projects Manager" showBack={true} />
+        <ProjectManager client:load />
+    </div>
+</BaseLayout>

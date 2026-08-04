@@ -7,7 +7,6 @@ export const careerUi = {
         schedule_call: 'Schedule a Call',
         copied_toast: 'Email copied to clipboard!',
 
-        // Impact Metrics
         impact_title: 'Key Engineering Impact & Metrics',
         metric_1_val: '40%',
         metric_1_lbl: 'Latency Reduction via SQL & Cache Optimization',
@@ -18,7 +17,6 @@ export const careerUi = {
         metric_4_val: '5x',
         metric_4_lbl: 'Deployment Speed Increase (CI/CD Pipelines)',
 
-        // Timeline
         timeline_title: 'Experience Timeline',
     },
     uk: {
@@ -29,7 +27,6 @@ export const careerUi = {
         schedule_call: 'Запланувати Дзвінок',
         copied_toast: 'Email успішно скопійовано!',
 
-        // Impact Metrics
         impact_title: 'Ключові Інженерні Досягнення',
         metric_1_val: '40%',
         metric_1_lbl: 'Зниження затримки за рахунок SQL та кЕшування',
@@ -40,7 +37,6 @@ export const careerUi = {
         metric_4_val: '5x',
         metric_4_lbl: 'Прискорення деплою (оптимізація CI/CD)',
 
-        // Timeline
         timeline_title: 'Хронологія Досвіду',
     },
     fr: {
@@ -65,7 +61,6 @@ export const careerUi = {
     },
 } as const;
 
-// Моковий список посад
 export const MOCK_CAREER_ITEMS = [
     {
         period: '2023 — Present',

@@ -1,43 +1,11 @@
-# Astro Starter Kit: Minimal
+# Denys Skobalo.space — Frontend
+Personal portfolio, tech radar, and professional hub of Denys Skobalo, a Senior Backend Engineer & Distributed Systems Architect. The project is built using modern, lightning-fast web technologies with full multi-language support (en, uk, fr).
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+## 🚀 Tech Stack & Architecture
+Framework: Astro v7 (Static Site Generation / Multi-page application structure)
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+UI Components: Svelte 5 for interactive components (e.g., tech stream carousel)
 
-## 🚀 Project Structure
+Styling: Tailwind CSS v4 with custom dark/light mode and responsive design system
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Type Safety: TypeScript (Strict configuration)

@@ -13,6 +13,10 @@ const {
     description = 'Personal website and portfolio of Denys Skobalo',
     lang = DEFAULT_LOCALE,
 } = Astro.props;
+
+const pathname = Astro.url.pathname;
+const canonicalPath = pathname.replace(new RegExp(`^/${lang}`), '') || '';
+const siteUrl = Astro.site?.origin || 'https://denysskobalodev.space';
 ---
 
 <!doctype html>
@@ -20,13 +24,25 @@ const {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- Перевірка та відновлення збереженої теми до завантаження сторінки (уникнення миготіння) -->
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={`${siteUrl}${pathname}`} />
+
+    <!-- i18n Alternate Links -->
+    {Object.keys(LOCALES).map((loc) => (
+            <link rel="alternate" hreflang={loc} href={`${siteUrl}/${loc}${canonicalPath}`} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}/${DEFAULT_LOCALE}${canonicalPath}`} />
+
     <script is:inline>
         const theme = (() => {
             if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {

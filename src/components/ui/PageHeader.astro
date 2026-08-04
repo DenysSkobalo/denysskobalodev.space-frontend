@@ -1,0 +1,27 @@
+---
+import Badge from './Badge.astro';
+
+interface Props {
+    title: string;
+    subtitle: string;
+    badgeText?: string;
+    badgeVariant?: 'emerald' | 'amber' | 'indigo' | 'zinc';
+    pulse?: boolean;
+}
+
+const { title, subtitle, badgeText, badgeVariant = 'emerald', pulse = false } = Astro.props;
+---
+
+<div class="space-y-4 pb-6 mb-8 border-b border-zinc-200 dark:border-zinc-800">
+    {badgeText && (
+            <Badge variant={badgeVariant} pulse={pulse}>
+                {badgeText}
+            </Badge>
+    )}
+    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+        {title}
+    </h1>
+    <p class="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl">
+        {subtitle}
+    </p>
+</div>

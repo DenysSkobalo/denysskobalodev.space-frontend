@@ -1,0 +1,13 @@
+---
+export const prerender = false;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AdminHeader from '@/components/admin/AdminHeader.astro';
+import ResearchManager from '@/components/admin/ResearchManager.svelte';
+---
+
+<BaseLayout title="Admin — Manage Research Papers">
+    <div class="space-y-6 py-6 max-w-5xl mx-auto">
+        <AdminHeader title="Research Papers Manager" showBack={true} />
+        <ResearchManager client:load />
+    </div>
+</BaseLayout>

@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import TechTag from '@/components/ui/TechTag.astro';
+import Footer from '@/components/Footer.astro';
+import { LOCALES } from '@/i18n/locales';
+import { MOCK_RESEARCH_ITEMS } from '@/i18n/researchUi';
+import { getValidLocale } from '@/utils/i18n';
+
+export function getStaticPaths() {
+    return Object.keys(LOCALES).flatMap((lang) =>
+        MOCK_RESEARCH_ITEMS.map((item) => ({
+            params: { lang, slug: item.slug },
+            props: { item },
+        }))
+    );
+}
+
+const { lang } = Astro.params;
+const { item } = Astro.props;
+const validLang = getValidLocale(lang);
+---
+
+<BaseLayout title={`${item.title} — Research Paper`} lang={validLang}>
+    <Header slot="header" currentLang={validLang} />
+
+    <article class="space-y-8 py-6 max-w-3xl mx-auto">
+        <a href={`/${validLang}/research`} class="text-xs font-semibold text-amber-500 hover:underline">
+            ← Back to Research Papers
+        </a>
+
+        <div class="space-y-4 border-b border-zinc-200 dark:border-zinc-800 pb-6">
+            <div class="flex items-center gap-3 font-mono text-xs text-zinc-500">
+                <span class="px-2.5 py-0.5 rounded border border-amber-500/30 bg-amber-500/10 text-amber-500 font-bold">
+                    {item.category}
+                </span>
+                <span>{item.date}</span>
+                <span>•</span>
+                <span>{item.readTime}</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white leading-tight">
+                {item.title}
+            </h1>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+                {item.tags.map((tag) => (
+                        <TechTag label={tag} prefix="#" />
+                ))}
+            </div>
+        </div>
+
+        <div class="glow-card p-6 space-y-4">
+            <h2 class="text-sm font-bold uppercase tracking-wider font-mono text-amber-500">Abstract</h2>
+            <p class="text-base text-zinc-700 dark:text-zinc-300 leading-relaxed italic">
+                "{item.summary}"
+            </p>
+        </div>
+
+        <div class="prose dark:prose-invert max-w-none text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed space-y-4">
+            <p>
+                Full technical specification and whitepaper code implementations will be attached to this RFC document shortly.
+            </p>
+        </div>
+    </article>
+
+    <Footer slot="footer" text="Denys Skobalo. System Research Lab." />
+</BaseLayout>
