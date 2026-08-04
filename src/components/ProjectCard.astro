@@ -7,16 +7,25 @@ interface Props {
     project: ProjectItem;
     visitText?: string;
     codeText?: string;
+    currentLang?: string;
 }
 
-const { project, visitText = 'Visit', codeText = 'Code' } = Astro.props;
+const { project, visitText = 'Visit', codeText = 'Code', currentLang = 'en' } = Astro.props;
 
 const statusVariantMap: Record<ProjectItem['status'], 'emerald' | 'indigo' | 'amber' | 'zinc'> = {
-    'Live SaaS': 'emerald',
     'Open Source': 'indigo',
     'In Development': 'amber',
-    'Completed': 'zinc',
 };
+
+const tagline = typeof project.tagline === 'object'
+    ? (project.tagline[currentLang] || project.tagline['en'] || '')
+    : project.tagline;
+
+const description = typeof project.description === 'object'
+    ? (project.description[currentLang] || project.description['en'] || '')
+    : project.description;
+
+const stackList = project.techStack || [];
 ---
 
 <div class="glow-card p-6 flex flex-col justify-between space-y-5 group hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-300">
@@ -29,14 +38,14 @@ const statusVariantMap: Record<ProjectItem['status'], 'emerald' | 'indigo' | 'am
                 <div class="space-y-0.5">
                     <div class="flex items-center gap-2 flex-wrap">
                         <h2 class="text-base font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-emerald-500 transition-colors leading-snug">
-                            {project.title}
+                            {project.name}
                         </h2>
                         <Badge variant={statusVariantMap[project.status] || 'zinc'}>
                             {project.status}
                         </Badge>
                     </div>
                     <p class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
-                        {project.tagline}
+                        {tagline}
                     </p>
                 </div>
             </div>
@@ -59,18 +68,20 @@ const statusVariantMap: Record<ProjectItem['status'], 'emerald' | 'indigo' | 'am
                                 class="px-3 py-1.5 rounded-lg bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-xs font-bold hover:opacity-90 transition flex items-center gap-1 shadow-sm"
                         >
                             <span>{visitText}</span>
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
                         </a>
                 )}
             </div>
         </div>
         <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            {project.description}
+            {description}
         </p>
     </div>
     <div class="pt-2">
         <div class="flex flex-wrap gap-1.5">
-            {project.stack.map((tech) => (
+            {stackList.map((tech) => (
                     <TechTag label={tech} />
             ))}
         </div>

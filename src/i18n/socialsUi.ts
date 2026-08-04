@@ -1,81 +1,66 @@
 export const socialsUi = {
     en: {
-        title: 'Connect & Social Ecosystem',
-        subtitle: 'Explore my official tech channels, social profiles, and direct contact options.',
+        title: 'Get in Touch & Social Hub',
+        subtitle: 'I am always open to discussing new senior backend engineering roles, system architecture consulting, or technical product feedback. Reach out via direct email, LinkedIn, or follow my projects and tech notes across social platforms.',
     },
     uk: {
-        title: 'Соціальні Мережі та Канали',
-        subtitle: 'Офіційні канали, профілі в соцмережах та прямі контакти.',
+        title: 'Контакти та Соціальні Мережі',
+        subtitle: 'Буду радий поспілкуватися! Тут ви знайдете мої прямі контакти для обговорення вакансій, мої інженерні канали з розбором архітектурних рішень та профілі, де можна стежити за моїми проєктами й продуктами.',
     },
     fr: {
-        title: 'Réseaux & Écosystème',
-        subtitle: 'Mes canaux officiels, profils sociaux et contacts directs.',
+        title: 'Contact & Réseaux Sociaux',
+        subtitle: 'Je suis toujours ouvert à discuter de nouveaux postes en ingénierie backend senior, de conseil en architecture système ou de retours sur mes produits. Contactez-moi par e-mail, LinkedIn ou suivez mes notes techniques sur les réseaux.',
     },
 } as const;
 
-export const SOCIAL_CHANNELS = [
+export interface SocialChannel {
+    id: string;
+    name: string;
+    handle: string;
+    url: string;
+}
+
+export const SOCIAL_CHANNELS: SocialChannel[] = [
     {
-        id: 'telegram',
-        name: 'Telegram Channel',
-        handle: '@denys_skobalo_tech',
-        url: 'https://t.me/example',
-        description: 'Tech notes, backend architecture breakdowns, and system design patterns.',
-        badge: 'Channel',
-    },
-    {
-        id: 'youtube',
-        name: 'YouTube',
-        handle: '@denys_skobalo',
-        url: '/in-progress',
-        description: 'Video tutorials, live coding sessions, and deep-dive architecture reviews.',
-        badge: 'Coming Soon',
-    },
-    {
-        id: 'twitter',
-        name: 'Twitter / X',
-        handle: '@denys_skobalo',
-        url: 'https://x.com/example',
-        description: 'Insights on Go, Rust microservices, Kafka, and cloud infrastructure.',
-        badge: 'Social',
-    },
-    {
-        id: 'threads',
-        name: 'Threads',
-        handle: '@denys.skobalo',
-        url: 'https://threads.net/example',
-        description: 'Short engineering thoughts, dev life, and side-project updates.',
-        badge: 'Social',
-    },
-    {
-        id: 'reddit',
-        name: 'Reddit',
-        handle: 'u/denys_skobalo',
-        url: 'https://reddit.com/user/example',
-        description: 'Discussions in r/golang, r/systemdesign, and r/backend.',
-        badge: 'Community',
+        id: 'email',
+        name: 'Email',
+        handle: 'skobalodenys@gmail.com',
+        url: 'mailto:skobalodenys@gmail.com',
     },
     {
         id: 'linkedin',
         name: 'LinkedIn',
-        handle: 'Denys Skobalo',
-        url: 'https://linkedin.com/in/example',
-        description: 'Professional engineering experience, endorsements, and career network.',
-        badge: 'Professional',
+        handle: 'linkedin.com/in/denys-skobalo',
+        url: 'https://linkedin.com/in/denys-skobalo',
     },
     {
         id: 'github',
         name: 'GitHub',
-        handle: 'denys-skobalo',
-        url: 'https://github.com/example',
-        description: 'Open source repositories, backend libraries, and code samples.',
-        badge: 'Code',
+        handle: 'github.com/DenysSkobalo',
+        url: 'https://github.com/DenysSkobalo',
     },
     {
-        id: 'email',
-        name: 'Direct Email',
-        handle: 'denys.skobalo@example.com',
-        url: 'mailto:denys.skobalo@example.com',
-        description: 'Official inquiries, architecture consulting, and employment offers.',
-        badge: 'Direct Contact',
+        id: 'telegram',
+        name: 'Telegram Channel',
+        handle: '@comptalks',
+        url: 'https://t.me/comptalks',
+    },
+    {
+        id: 'twitter',
+        name: 'X / Twitter',
+        handle: '@ten1d',
+        url: 'https://x.com/ten1d',
+    },
+    {
+        id: 'threads',
+        name: 'Threads',
+        handle: '@t3nyd',
+        url: 'https://www.threads.com/@t3nyd',
+    },
+    {
+        id: 'youtube',
+        name: 'YouTube',
+        handle: 'Coming Soon',
+        url: '#',
     },
 ];

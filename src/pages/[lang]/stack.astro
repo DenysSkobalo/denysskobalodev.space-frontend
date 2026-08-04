@@ -13,7 +13,7 @@ const validLang = getValidLocale(lang);
 const t = stackUi[validLang];
 ---
 
-<BaseLayout title="Tech Stack — Denys Skobalo" lang={validLang}>
+<BaseLayout title={`Tech Stack — Denys Skobalo`} lang={validLang}>
     <Header slot="header" currentLang={validLang} />
 
     <div class="space-y-10 py-6">
@@ -24,89 +24,275 @@ const t = stackUi[validLang];
                 badgeVariant="emerald"
         />
 
+        <div class="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-xs text-emerald-600 dark:text-emerald-400 font-mono">
+            💡 {t.note}
+        </div>
+
         <div class="space-y-6">
+            {/* Фільтри */}
             <div class="flex flex-wrap gap-2 border-b border-zinc-200 dark:border-zinc-800 pb-3" id="filter-tabs">
-                <button data-filter="all" class="filter-btn active px-3.5 py-1.5 rounded-lg text-xs font-medium bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 transition">
+                <button data-filter="all" class="filter-btn active px-3.5 py-1.5 rounded-lg text-xs font-medium bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 transition cursor-pointer">
                     {t.filter_all}
                 </button>
-                <button data-filter="backend" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
-                    {t.filter_backend}
+                <button data-filter="languages" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer">
+                    {t.filter_languages}
                 </button>
-                <button data-filter="database" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
-                    {t.filter_database}
+                <button data-filter="databases" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer">
+                    {t.filter_databases}
                 </button>
-                <button data-filter="devops" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
+                <button data-filter="infrastructure" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer">
                     {t.filter_devops}
-                </button>
-                <button data-filter="architecture" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
-                    {t.filter_architecture}
                 </button>
             </div>
 
+            {/* Сітка технологій */}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="tech-grid">
-                {MOCK_TECH_STACK.map((tech) => (
-                        <div
-                                data-category={tech.category}
-                                class="tech-card glow-card p-5 space-y-4 flex flex-col justify-between"
-                        >
-                            <div class="space-y-3">
-                                <div class="flex items-center justify-between">
-                                    <span class="text-3xl">{tech.icon}</span>
-                                    <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-500">
-                                    {tech.level}
-                                </span>
-                                </div>
-                                <div>
-                                    <h3 class="text-base font-bold text-zinc-900 dark:text-zinc-100">
-                                        {tech.name}
-                                    </h3>
-                                    <span class="font-mono text-xs text-zinc-500">
-                                    {tech.experienceYears} {t.exp_years}
-                                </span>
-                                </div>
-                                <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                                    {tech.shortDesc}
-                                </p>
-                            </div>
-                            <a
-                                    href={`/${validLang}/stack/${tech.slug}`}
-                                    class="pt-3 border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
+                {MOCK_TECH_STACK.map((tech) => {
+                    const shortDesc = tech.shortDesc[validLang] || tech.shortDesc['en'];
+
+                    return (
+                            <div
+                                    data-category={tech.category}
+                                    data-slug={tech.slug}
+                                    data-name={tech.name}
+                                    data-icon={tech.iconSvgUrl}
+                                    data-years={tech.yearsSinceFirstTouch}
+                                    data-level={tech.level}
+                                    class="tech-card open-modal-btn glow-card p-5 space-y-4 flex flex-col justify-between cursor-pointer hover:border-emerald-500/50 transition-all"
                             >
-                                <span>{t.view_details}</span>
-                            </a>
-                        </div>
-                ))}
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <div class="w-12 h-12 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white p-2 flex items-center justify-center shrink-0 shadow-md">
+                                            <img
+                                                    src={tech.iconSvgUrl}
+                                                    alt={`${tech.name} logo`}
+                                                    class="w-full h-full object-contain filter dark:brightness-110"
+                                                    loading="lazy"
+                                            />
+                                        </div>
+                                        <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-500">
+                                        {tech.level}
+                                    </span>
+                                    </div>
+
+                                    <div>
+                                        <h3 class="text-base font-bold text-zinc-900 dark:text-zinc-100">
+                                            {tech.name}
+                                        </h3>
+                                        <span class="font-mono text-xs text-zinc-500">
+                                        {tech.yearsSinceFirstTouch} {t.exp_exposure}
+                                    </span>
+                                    </div>
+
+                                    <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                                        {shortDesc}
+                                    </p>
+                                </div>
+
+                                <div class="pt-3 border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                                    <span>{t.view_details}</span>
+                                </div>
+                            </div>
+                    );
+                })}
             </div>
         </div>
     </div>
 
+    {/* Локалізація текстових елементів модалки */}
+    {(() => {
+        const modalTexts = {
+            en: {
+                badge: 'Section Under Active Development',
+                desc: 'Detailed breakdown of commercial experience, production use-cases, and architectural decisions for this technology is currently under development.',
+                ok: 'Understood',
+            },
+            uk: {
+                badge: 'Розділ знаходиться в розробці',
+                desc: 'Детальний розбір комерційного досвіду, кейсів використання та архітектурних рішень для цієї технології знаходиться в розробці.',
+                ok: 'Зрозуміло',
+            },
+            fr: {
+                badge: 'Section en cours de développement',
+                desc: 'L\'analyse détaillée de l\'expérience commerciale, des cas d\'utilisation en production et des choix d\'architecture est en cours de rédaction.',
+                ok: 'Compris',
+            },
+        };
+        const mText = modalTexts[validLang] || modalTexts['en'];
+
+        return (
+                <div
+                        id="tech-modal"
+                        class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 dark:bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200 p-4"
+                        style="display: none;"
+                >
+                    <div class="glow-card max-w-lg w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 space-y-6 relative shadow-2xl z-10 text-zinc-900 dark:text-white">
+                        <!-- Кнопка закриття (Хрестик) -->
+                        <button
+                                type="button"
+                                id="close-modal-btn"
+                                class="absolute top-4 right-4 p-2.5 rounded-xl text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer z-20"
+                                aria-label="Close modal"
+                        >
+                            <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-white p-2.5 flex items-center justify-center shrink-0 shadow-md">
+                                <img id="modal-icon" src="" alt="" class="w-full h-full object-contain" />
+                            </div>
+                            <div>
+                                <h3 id="modal-title" class="text-xl font-bold text-zinc-900 dark:text-white"></h3>
+                                <p id="modal-subtitle" class="font-mono text-xs text-emerald-600 dark:text-emerald-400 mt-0.5"></p>
+                            </div>
+                        </div>
+
+                        {/* Адаптивний та локалізований блок застереження */}
+                        <div class="p-4 rounded-xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30 text-amber-800 dark:text-amber-300 space-y-2">
+                            <div class="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-amber-900 dark:text-amber-400">
+                                <span>🚧</span> {mText.badge}
+                            </div>
+                            <p class="text-xs text-amber-900/80 dark:text-amber-200/90 leading-relaxed font-medium">
+                                {mText.desc}
+                            </p>
+                        </div>
+
+                        <div class="pt-2 flex justify-end">
+                            <button
+                                    type="button"
+                                    id="modal-ok-btn"
+                                    class="px-5 py-2 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-semibold text-xs hover:bg-zinc-800 dark:hover:bg-zinc-200 transition cursor-pointer shadow-sm"
+                            >
+                                {mText.ok}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+        );
+    })()}
+
     <Footer slot="footer" text="Denys Skobalo. Tech Stack Architecture." />
 </BaseLayout>
 
-<script>
-    const buttons = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.tech-card');
+<script is:inline>
+    (function () {
+        function initModalLogic() {
+            const modal = document.getElementById('tech-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalSubtitle = document.getElementById('modal-subtitle');
+            const modalIcon = document.getElementById('modal-icon');
+            const cards = document.querySelectorAll('.tech-card');
+            const filterBtns = document.querySelectorAll('.filter-btn');
 
-    buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const filter = btn.getAttribute('data-filter');
+            function openModal(slug) {
+                const card = document.querySelector(`.tech-card[data-slug="${slug}"]`);
+                if (!card || !modal) return;
 
-            buttons.forEach(b => {
-                b.classList.remove('bg-zinc-900', 'dark:bg-zinc-100', 'text-white', 'dark:text-zinc-900');
-                b.classList.add('text-zinc-600', 'dark:text-zinc-400');
-            });
+                if (modalTitle) modalTitle.textContent = card.dataset.name || '';
+                if (modalSubtitle) modalSubtitle.textContent = `${card.dataset.level || ''} • ${card.dataset.years || ''} Years Experience / Exposure`;
+                if (modalIcon) {
+                    modalIcon.src = card.dataset.icon || '';
+                    modalIcon.alt = card.dataset.name || '';
+                }
 
-            btn.classList.add('bg-zinc-900', 'dark:bg-zinc-100', 'text-white', 'dark:text-zinc-900');
-            btn.classList.remove('text-zinc-600', 'dark:text-zinc-400');
+                modal.style.display = 'flex';
+                requestAnimationFrame(() => {
+                    modal.classList.remove('opacity-0', 'pointer-events-none');
+                });
+                document.body.style.overflow = 'hidden';
+            }
 
-            cards.forEach(card => {
-                const item = card as HTMLElement;
-                if (filter === 'all' || item.dataset.category === filter) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
+            function hideModal() {
+                if (!modal) return;
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = '';
+
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 200);
+
+                const url = new URL(window.location.href);
+                if (url.searchParams.has('tech')) {
+                    url.searchParams.delete('tech');
+                    window.history.replaceState({}, '', url.pathname + (url.searchParams.toString() ? '?' + url.searchParams.toString() : ''));
+                }
+            }
+
+            // Глобальний делегатор кліків (гарантує 100% закриття при кліку на будь-яку кнопку закриття або фон)
+            document.addEventListener('click', function (e) {
+                const target = e.target;
+                if (!target) return;
+
+                // Якщо клікнули на кнопку закриття Хрестик або ОК
+                if (target.closest('#close-modal-btn') || target.closest('#modal-ok-btn')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    hideModal();
+                    return;
+                }
+
+                // Якщо клікнули на оверлей поза модальним вікном
+                if (target === modal) {
+                    hideModal();
+                    return;
+                }
+
+                // Якщо клікнули на картку технології
+                const techCard = target.closest('.tech-card');
+                if (techCard) {
+                    const slug = techCard.dataset.slug;
+                    if (slug) {
+                        const url = new URL(window.location.href);
+                        url.searchParams.set('tech', slug);
+                        window.history.replaceState({}, '', url.pathname + '?' + url.searchParams.toString());
+                        openModal(slug);
+                    }
                 }
             });
-        });
-    });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    hideModal();
+                }
+            });
+
+            // Фільтри
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const filter = this.getAttribute('data-filter');
+
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-zinc-900', 'dark:bg-zinc-100', 'text-white', 'dark:text-zinc-900');
+                        b.classList.add('text-zinc-600', 'dark:text-zinc-400');
+                    });
+
+                    this.classList.add('bg-zinc-900', 'dark:bg-zinc-100', 'text-white', 'dark:text-zinc-900');
+                    this.classList.remove('text-zinc-600', 'dark:text-zinc-400');
+
+                    cards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Авто-відкриття з URL ?tech=
+            const urlParams = new URLSearchParams(window.location.search);
+            const techParam = urlParams.get('tech');
+            if (techParam) {
+                openModal(techParam);
+            }
+        }
+
+        if (document.readyState === 'interactive' || document.readyState === 'complete') {
+            initModalLogic();
+        } else {
+            document.addEventListener('DOMContentLoaded', initModalLogic);
+        }
+    })();
 </script>

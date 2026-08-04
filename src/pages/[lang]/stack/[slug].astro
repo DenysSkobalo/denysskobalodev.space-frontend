@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/Header.astro';
-import PageHeader from '@/components/ui/PageHeader.astro';
 import TechTag from '@/components/ui/TechTag.astro';
 import Footer from '@/components/Footer.astro';
 import { LOCALES } from '@/i18n/locales';
@@ -20,6 +19,9 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const { tech } = Astro.props;
 const validLang = getValidLocale(lang);
+
+const shortDesc = tech.shortDesc[validLang] || tech.shortDesc['en'];
+const experienceDetails = tech.experienceDetails[validLang] || tech.experienceDetails['en'];
 ---
 
 <BaseLayout title={`${tech.name} — Tech Notes | Denys Skobalo`} lang={validLang}>
@@ -31,17 +33,30 @@ const validLang = getValidLocale(lang);
         </a>
 
         <div class="flex items-center gap-4">
-            <span class="text-5xl">{tech.icon}</span>
+            <div class="w-16 h-16 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 p-3 flex items-center justify-center shrink-0">
+                <img
+                        src={tech.iconSvgUrl}
+                        alt={`${tech.name} logo`}
+                        class="w-full h-full object-contain"
+                />
+            </div>
             <div>
                 <h1 class="text-3xl font-extrabold text-zinc-900 dark:text-white">{tech.name}</h1>
-                <p class="font-mono text-xs text-emerald-500 mt-1">{tech.level} • {tech.experienceYears} Years Experience</p>
+                <p class="font-mono text-xs text-emerald-500 mt-1">{tech.level} • {tech.yearsSinceFirstTouch} Years Since First Touch</p>
             </div>
         </div>
 
         <div class="glow-card p-6 space-y-4">
-            <h2 class="text-sm font-bold uppercase tracking-wider font-mono text-zinc-400">Overview & Architectural Context</h2>
+            <h2 class="text-sm font-bold uppercase tracking-wider font-mono text-zinc-400">Overview & Context</h2>
             <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                {tech.shortDesc}
+                {shortDesc}
+            </p>
+        </div>
+
+        <div class="glow-card p-6 space-y-4">
+            <h2 class="text-sm font-bold uppercase tracking-wider font-mono text-emerald-500">Commercial & Hands-on Experience</h2>
+            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                {experienceDetails}
             </p>
             <div class="pt-4 border-t border-zinc-200 dark:border-zinc-800 flex items-center gap-2">
                 <span class="text-xs font-mono text-zinc-400">Category:</span>

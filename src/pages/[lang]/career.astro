@@ -4,7 +4,7 @@ import Header from '@/components/Header.astro';
 import PageHeader from '@/components/ui/PageHeader.astro';
 import TechTag from '@/components/ui/TechTag.astro';
 import Footer from '@/components/Footer.astro';
-import { careerUi, MOCK_CAREER_ITEMS } from '@/i18n/careerUi';
+import { careerUi, CAREER_EXPERIENCE, EDUCATION_ITEMS } from '@/i18n/careerUi';
 import { SOCIAL_CHANNELS } from '@/i18n/socialsUi';
 import { getI18nStaticPaths, getValidLocale } from '@/utils/i18n';
 
@@ -15,10 +15,10 @@ const validLang = getValidLocale(lang);
 const t = careerUi[validLang];
 
 const emailChannel = SOCIAL_CHANNELS.find((c) => c.id === 'email');
-const contactEmail = emailChannel ? emailChannel.handle : 'denys.skobalo@example.com';
+const contactEmail = emailChannel ? emailChannel.handle : 'skobalodenys@gmail.com';
 ---
 
-<BaseLayout title="Career Path — Denys Skobalo" lang={validLang}>
+<BaseLayout title={`Career Path — Denys Skobalo`} lang={validLang}>
     <Header slot="header" currentLang={validLang} />
 
     <div class="space-y-12 py-6">
@@ -37,7 +37,7 @@ const contactEmail = emailChannel ? emailChannel.handle : 'denys.skobalo@example
                         class="px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-semibold text-xs hover:opacity-90 transition flex items-center gap-2"
                 >
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    {t.download_resume}
+                    {t.download_cv}
                 </a>
                 <button
                         id="copy-email-btn"
@@ -45,42 +45,91 @@ const contactEmail = emailChannel ? emailChannel.handle : 'denys.skobalo@example
                         class="px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 font-semibold text-xs hover:border-zinc-300 dark:hover:border-zinc-700 transition flex items-center gap-2"
                 >
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
-                    {t.copy_email}
+                    Copy Email
                 </button>
             </div>
         </div>
 
+        {/* Секція досвіду роботи */}
         <div class="space-y-6">
             <h2 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                {t.timeline_title}
+                {t.section_experience}
             </h2>
+
             <div class="relative border-l-2 border-zinc-200 dark:border-zinc-800 ml-3 space-y-8">
-                {MOCK_CAREER_ITEMS.map((item) => (
-                        <div class="relative pl-6 group">
-                            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full border-2 border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 group-hover:border-emerald-500 group-hover:bg-emerald-500 transition-colors"></div>
-                            <div class="glow-card p-6 space-y-4">
-                                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-200 dark:border-zinc-800 pb-3">
-                                    <div>
-                                        <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100">
-                                            {item.role}
-                                        </h3>
-                                        <div class="text-xs font-medium text-emerald-600 dark:text-emerald-400">
-                                            {item.company} <span class="text-zinc-500">{item.location}</span>
+                {CAREER_EXPERIENCE.map((item) => {
+                    const description = item.description[validLang] || item.description['en'];
+                    const achievements = item.achievements[validLang] || item.achievements['en'] || [];
+                    const stack = item.techStack || [];
+
+                    return (
+                            <div class="relative pl-6 group">
+                                <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full border-2 border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 group-hover:border-emerald-500 group-hover:bg-emerald-500 transition-colors"></div>
+
+                                <div class="glow-card p-6 space-y-4">
+                                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-200 dark:border-zinc-800 pb-3">
+                                        <div>
+                                            <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+                                                {item.role}
+                                            </h3>
+                                            <div class="text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                                                {item.company} <span class="text-zinc-500">({item.location})</span>
+                                            </div>
                                         </div>
+                                        <span class="font-mono text-xs px-2.5 py-1 rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400">
+                                        {item.period}
+                                    </span>
                                     </div>
-                                    <span class="font-mono text-xs px-2.5 py-1 rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400">
-                                    {item.period}
-                                </span>
-                                </div>
-                                <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                                    {item.description}
-                                </p>
-                                <div class="flex flex-wrap gap-1.5 pt-2">
-                                    {item.stack.map((tech) => (
-                                            <TechTag label={tech} />
-                                    ))}
+
+                                    <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                                        {description}
+                                    </p>
+
+                                    {achievements.length > 0 && (
+                                            <div class="space-y-2 pt-1">
+                                        <span class="text-xs font-bold text-zinc-800 dark:text-zinc-200">
+                                            {t.key_achievements}
+                                        </span>
+                                                <ul class="list-disc list-inside space-y-1 text-xs text-zinc-600 dark:text-zinc-400">
+                                                    {achievements.map((ach) => (
+                                                            <li>{ach}</li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                    )}
+
+                                    <div class="flex flex-wrap gap-1.5 pt-2">
+                                        {stack.map((tech) => (
+                                                <TechTag label={tech} />
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
+                    );
+                })}
+            </div>
+        </div>
+
+        {/* Секція освіти */}
+        <div class="space-y-6 pt-4">
+            <h2 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                {t.section_education}
+            </h2>
+
+            <div class="grid grid-cols-1 gap-4">
+                {EDUCATION_ITEMS.map((edu) => (
+                        <div class="glow-card p-5 flex flex-wrap items-center justify-between gap-4">
+                            <div class="space-y-1">
+                                <h3 class="text-base font-bold text-zinc-900 dark:text-zinc-100">
+                                    {edu.degree[validLang] || edu.degree['en']}
+                                </h3>
+                                <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                                    {edu.institution}  <span class="text-zinc-500">— {edu.location}</span>
+                                </p>
+                            </div>
+                            <span class="font-mono text-xs px-2.5 py-1 rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400">
+                            {edu.period}
+                        </span>
                         </div>
                 ))}
             </div>

@@ -32,8 +32,8 @@ const bentoCards = [
     },
     {
         href: `/${lang}/projects`,
-        title: t.bento_products_title,
-        desc: t.bento_products_desc,
+        title: t.bento_projects_title,
+        desc: t.bento_projects_desc,
         tag: 'SAAS SHOWCASE',
         icon: '🚀',
         colSpan: 'md:col-span-1',
@@ -60,23 +60,26 @@ const bentoCards = [
 <section class="space-y-10 py-6 sm:py-8">
 
     <div class="text-center max-w-3xl mx-auto space-y-6">
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-medium">
-      <span class="relative flex h-2 w-2">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-      </span>
+        <a
+                href={`/${lang}/career`}
+                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-medium hover:border-emerald-500/50 transition-colors"
+        >
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
             {t.hero_badge}
-        </div>
+        </a>
 
         <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.15]">
-            {t.hero_title_1} <br />
+            {t.hero_title_prefix} <br />
             <span class="text-gradient">
-        {t.hero_title_2}
-      </span>
+                {t.hero_title_suffix}
+            </span>
         </h1>
 
         <p class="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal max-w-2xl mx-auto">
-            {t.hero_desc}
+            {t.hero_description}
         </p>
 
         <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
@@ -100,42 +103,48 @@ const bentoCards = [
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
         <div class="md:col-span-3">
-            <TechCarousel client:load items={doubleStack} currentLang={lang} />
+            <TechCarousel
+                    client:load
+                    items={doubleStack}
+                    currentLang={lang}
+                    streamTitle={t.telemetry_title}
+                    scrollHint={t.tech_stream_scroll}
+            />
         </div>
 
         <div class="glow-card p-6 md:col-span-3 space-y-4">
             <div class="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
-        <span class="font-mono text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-          ⚡ {t.telemetry_title}
-        </span>
+                <span class="font-mono text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                    ⚡ {t.telemetry_title}
+                </span>
                 <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 font-semibold">
-          {t.telemetry_status}
-        </span>
+                    {t.telemetry_status}
+                </span>
             </div>
 
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
-                <div class="inner-card p-3.5 space-y-1">
-                    <span class="text-[11px] text-zinc-500 block">{t.metric_exp}</span>
-                    <div class="text-xl font-bold text-zinc-900 dark:text-zinc-100">8+ YRS</div>
-                    <span class="text-[10px] text-emerald-500">↑ Distributed Systems</span>
+                <div class="inner-card p-3.5 flex flex-col justify-between space-y-1">
+                    <span class="text-[11px] text-zinc-500 block truncate">{t.metric_exp}</span>
+                    <div class="text-2xl font-bold text-zinc-900 dark:text-zinc-100">{t.metric_exp_val}</div>
+                    <span class="text-[10px] text-emerald-500 truncate">↑ {t.metric_exp_sub}</span>
                 </div>
 
-                <div class="inner-card p-3.5 space-y-1">
-                    <span class="text-[11px] text-zinc-500 block">{t.metric_uptime}</span>
-                    <div class="text-xl font-bold text-emerald-500">99.99%</div>
-                    <span class="text-[10px] text-zinc-400">Target SLA</span>
+                <div class="inner-card p-3.5 flex flex-col justify-between space-y-1">
+                    <span class="text-[11px] text-zinc-500 block truncate">{t.metric_events}</span>
+                    <div class="text-2xl font-bold text-emerald-500">{t.metric_events_val}</div>
+                    <span class="text-[10px] text-zinc-400 truncate">{t.metric_events_sub}</span>
                 </div>
 
-                <div class="inner-card p-3.5 space-y-1">
-                    <span class="text-[11px] text-zinc-500 block">{t.metric_stack}</span>
-                    <div class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Go / Node / Rust</div>
-                    <span class="text-[10px] text-zinc-400">PostgreSQL, Kafka</span>
+                <div class="inner-card p-3.5 flex flex-col justify-between space-y-1">
+                    <span class="text-[11px] text-zinc-500 block truncate">{t.metric_latency}</span>
+                    <div class="text-2xl font-bold text-zinc-900 dark:text-zinc-100">{t.metric_latency_val}</div>
+                    <span class="text-[10px] text-zinc-400 truncate">{t.metric_latency_sub}</span>
                 </div>
 
-                <div class="inner-card p-3.5 space-y-1">
-                    <span class="text-[11px] text-zinc-500 block">{t.metric_architecture}</span>
-                    <div class="text-xl font-bold text-indigo-500">Event-Driven</div>
-                    <span class="text-[10px] text-zinc-400">CQRS & Microservices</span>
+                <div class="inner-card p-3.5 flex flex-col justify-between space-y-1">
+                    <span class="text-[11px] text-zinc-500 block truncate">{t.metric_concurrency}</span>
+                    <div class="text-2xl font-bold text-indigo-500">{t.metric_concurrency_val}</div>
+                    <span class="text-[10px] text-zinc-400 truncate">{t.metric_concurrency_sub}</span>
                 </div>
             </div>
         </div>
@@ -149,8 +158,8 @@ const bentoCards = [
                         <div class="flex items-center justify-between">
                             <span class="text-2xl">{card.icon}</span>
                             <span class="font-mono text-[10px] font-bold px-2.5 py-1 rounded-full border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-500 dark:text-zinc-400">
-              {card.tag}
-            </span>
+                            {card.tag}
+                        </span>
                         </div>
 
                         <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-emerald-500 transition-colors">

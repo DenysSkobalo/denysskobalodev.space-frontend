@@ -4,6 +4,8 @@
 
     export let items: TechItem[] = [];
     export let currentLang: string = 'en';
+    export let streamTitle: string = 'Interactive Tech Stream';
+    export let scrollHint: string = 'Drag or swipe to scroll';
 
     let container: HTMLDivElement;
     let isMouseDown = false;
@@ -80,11 +82,11 @@
     <div class="flex items-center justify-between">
         <span class="font-mono text-xs font-bold uppercase tracking-wider text-emerald-500 flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            Interactive Tech Stream
+            {streamTitle}
         </span>
         <div class="flex items-center gap-2">
             <span class="text-[11px] font-mono text-zinc-500">
-                Drag or swipe to scroll
+                {scrollHint}
             </span>
         </div>
     </div>
@@ -107,11 +109,13 @@
     >
         {#each items as tech}
             <a
-                    href={`/${currentLang}/stack/${tech.slug}`}
+                    href={`/${currentLang}/stack?tech=${tech.slug}`}
                     on:click={handleCardClick}
-                    class="group relative flex items-center gap-3 px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/60 hover:border-emerald-500/50 hover:scale-105 transition-all duration-200 shrink-0"
+                    class="group relative flex items-center gap-3 px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/60 hover:border-emerald-500/50 hover:scale-105 transition-all duration-200 shrink-0 cursor-pointer"
             >
-                <span class="text-2xl">{tech.icon}</span>
+                <div class="w-9 h-9 p-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white flex items-center justify-center shrink-0 shadow-sm">
+                    <img src={tech.iconSvgUrl} alt={tech.name} class="w-full h-full object-contain" />
+                </div>
                 <div class="space-y-0.5">
                     <h4 class="text-xs font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-emerald-500 transition-colors whitespace-nowrap">
                         {tech.name}
@@ -119,11 +123,6 @@
                     <div class="flex items-center gap-2">
                         <span class="text-[10px] font-mono text-zinc-500">{tech.level}</span>
                     </div>
-                </div>
-
-                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2.5 bg-zinc-900 text-zinc-100 text-[11px] rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50 pointer-events-none border border-zinc-700 font-sans">
-                    <div class="font-bold text-emerald-400 mb-0.5">{tech.name}</div>
-                    <p class="text-[10px] text-zinc-300 leading-tight">{tech.shortDesc}</p>
                 </div>
             </a>
         {/each}

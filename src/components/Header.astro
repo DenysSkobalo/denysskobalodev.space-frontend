@@ -1,6 +1,6 @@
 ---
 import { LOCALES, type Locale, DEFAULT_LOCALE } from '@/i18n/locales';
-import { ui } from '@/i18n/ui';
+import { navUi } from '@/i18n/navUi';
 import StatusDot from './ui/StatusDot.astro';
 
 interface Props {
@@ -8,18 +8,19 @@ interface Props {
 }
 
 const { currentLang = DEFAULT_LOCALE } = Astro.props;
-const t = ui[currentLang] || ui[DEFAULT_LOCALE];
+const nav = navUi[currentLang] || navUi[DEFAULT_LOCALE];
 
 const pathname = Astro.url.pathname;
 const pathnameWithoutLang = pathname.replace(new RegExp(`^/${currentLang}`), '') || '';
 
 const navItems = [
-    { href: `/${currentLang}`, label: t['nav.home'] },
-    { href: `/${currentLang}/career`, label: t['nav.career'] },
-    { href: `/${currentLang}/stack`, label: t['nav.tech'] },
-    { href: `/${currentLang}/research`, label: t['nav.research'] },
-    { href: `/${currentLang}/projects`, label: t['nav.projects'] },
-    { href: `/${currentLang}/socials`, label: t['nav.socials'] },
+    { href: `/${currentLang}`, label: nav.home },
+    { href: `/${currentLang}/career`, label: nav.career },
+    { href: `/${currentLang}/stack`, label: nav.stack },
+    { href: `/${currentLang}/research`, label: nav.research },
+    { href: `/${currentLang}/projects`, label: nav.projects },
+    { href: `/${currentLang}/devlog`, label: nav.devlog },
+    { href: `/${currentLang}/socials`, label: nav.socials },
 ];
 
 const isItemActive = (href: string) => {
@@ -28,6 +29,14 @@ const isItemActive = (href: string) => {
     }
     return pathname.startsWith(href);
 };
+
+// Словарик підписів для авторизації та кнопок модалки залежно від мови
+const modalTexts = {
+    en: { login: 'Sign In', dev_title: 'Authentication Module', dev_desc: 'User auth and personalized dashboard features are under development.', close: 'Got it' },
+    uk: { login: 'Увійти', dev_title: 'Модуль Авторизації', dev_desc: 'Функціонал особистого кабінету та авторизація знаходяться в розробці.', close: 'Зрозуміло' },
+    fr: { login: 'Connexion', dev_title: 'Module d\'Authentification', dev_desc: 'L\'espace personnel et l\'authentification sont en cours de développement.', close: 'Compris' },
+};
+const mText = modalTexts[currentLang] || modalTexts['en'];
 ---
 
 <header class="sticky top-0 z-50 w-full border-b border-zinc-200 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md">
@@ -41,14 +50,14 @@ const isItemActive = (href: string) => {
             </span>
         </a>
 
-        <!-- Navigation (перенесено на lg:flex замість md:flex) -->
-        <nav class="hidden lg:flex items-center gap-0.5 xl:gap-1 bg-zinc-100/70 dark:bg-zinc-900/50 p-1.5 rounded-full border border-zinc-200/80 dark:border-zinc-800/60 text-xs font-medium">
+        <!-- Navigation (адаптовано під додавання пункту DevLog) -->
+        <nav class="hidden xl:flex items-center gap-0.5 bg-zinc-100/70 dark:bg-zinc-900/50 p-1.5 rounded-full border border-zinc-200/80 dark:border-zinc-800/60 text-xs font-medium">
             {navItems.map(item => {
                 const active = isItemActive(item.href);
                 return (
                         <a
                                 href={item.href}
-                                class={`px-2.5 xl:px-3 py-1.5 rounded-full transition-all whitespace-nowrap ${
+                                class={`px-2.5 py-1.5 rounded-full transition-all whitespace-nowrap ${
                                     active
                                         ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white font-semibold shadow-xs'
                                         : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-zinc-800/50'
@@ -63,7 +72,7 @@ const isItemActive = (href: string) => {
         <!-- Control Buttons -->
         <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <!-- Language Dropdown -->
-            <div class="relative group hidden lg:block">
+            <div class="relative group hidden xl:block">
                 <button type="button" class="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:border-zinc-300 dark:hover:border-zinc-700 transition cursor-pointer">
                     <span>{LOCALES[currentLang].flag}</span>
                     <span class="uppercase">{currentLang}</span>
@@ -102,25 +111,25 @@ const isItemActive = (href: string) => {
             <button
                     id="login-btn"
                     type="button"
-                    class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 shadow-xs transition-all hidden lg:block cursor-pointer whitespace-nowrap"
+                    class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 shadow-xs transition-all hidden xl:block cursor-pointer whitespace-nowrap"
             >
-                {t['nav.login']}
+                {mText.login}
             </button>
 
-            <!-- Mobile / Tablet Menu Button (lg:hidden) -->
+            <!-- Mobile / Tablet Menu Button (xl:hidden) -->
             <button
                     id="mobile-menu-btn"
                     type="button"
                     aria-label="Open mobile menu"
-                    class="lg:hidden p-2 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 cursor-pointer shrink-0"
+                    class="xl:hidden p-2 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 cursor-pointer shrink-0"
             >
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
         </div>
     </div>
 
-    <!-- Mobile Drawer (з'являється до 1024px) -->
-    <div id="mobile-menu" class="hidden lg:hidden border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 pt-3 pb-5 space-y-4">
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden xl:hidden border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 pt-3 pb-5 space-y-4">
         <div class="space-y-1">
             {navItems.map(item => {
                 const active = isItemActive(item.href);
@@ -164,7 +173,7 @@ const isItemActive = (href: string) => {
                     type="button"
                     class="w-full text-center py-2.5 rounded-xl text-xs font-bold bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 transition cursor-pointer"
             >
-                {t['nav.login']}
+                {mText.login}
             </button>
         </div>
     </div>
@@ -178,12 +187,12 @@ const isItemActive = (href: string) => {
         <div class="w-12 h-12 bg-amber-500/10 text-amber-500 rounded-full flex items-center justify-center mx-auto border border-amber-500/20">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
         </div>
-        <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100">{t['modal.dev_title']}</h3>
+        <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100">{mText.dev_title}</h3>
         <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            {t['modal.dev_desc']}
+            {mText.dev_desc}
         </p>
         <button id="close-modal-btn" type="button" class="w-full py-2.5 text-xs font-semibold bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 rounded-xl transition cursor-pointer">
-            {t['modal.close']}
+            {mText.close}
         </button>
     </div>
 </dialog>

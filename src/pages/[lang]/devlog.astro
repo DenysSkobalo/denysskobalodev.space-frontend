@@ -1,0 +1,80 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import Footer from '@/components/Footer.astro';
+import { getI18nStaticPaths, getValidLocale } from '@/utils/i18n';
+
+export const getStaticPaths = getI18nStaticPaths;
+
+const { lang } = Astro.params;
+const validLang = getValidLocale(lang);
+
+const texts = {
+    en: {
+        title: 'Engineering DevLog',
+        subtitle: 'Real-time updates, architectural notes, micro-benchmarks, and open-source progress.',
+        badge: 'UNDER DEVELOPMENT',
+        heading: 'DevLog Hub Under Active Development',
+        description: 'I am building a lightweight stream to share daily engineering insights, C/Go performance profiling cases, and low-level system design logs. Stay tuned!',
+        btn: 'Explore Products & Projects Instead',
+    },
+    uk: {
+        title: 'Інженерний DevLog',
+        subtitle: 'Оновлення у реальному часі, архітектурні нотатки, мікро-бенчмарки та прогрес розробки.',
+        badge: 'В РОЗРОБЦІ',
+        heading: 'Розділ DevLog знаходиться в розробці',
+        description: 'Наразі я працюю над інтеграцією стрічки для публікації щоденних інженерних інсайтів, кейсів профілювання C/Go та нотаток з низькорівневого дизайну систем. Незабаром тут з\'являться перші записи!',
+        btn: 'Переглянути Проєкти та Продукти',
+    },
+    fr: {
+        title: 'DevLog d\'Ingénierie',
+        subtitle: 'Mises à jour en temps réel, notes d\'architecture, micro-benchmarks et progression open-source.',
+        badge: 'EN DÉVELOPPEMENT',
+        heading: 'Section DevLog en cours de développement',
+        description: 'Je prépare un flux léger pour partager mes réflexions quotidiennes d\'ingénierie, des cas de profilage C/Go et des notes sur la conception système. Restez à l\'écoute !',
+        btn: 'Explorer les Produits & Projets',
+    },
+};
+
+const t = texts[validLang];
+---
+
+<BaseLayout title={`DevLog — Denys Skobalo`} lang={validLang}>
+    <Header slot="header" currentLang={validLang} />
+
+    <div class="space-y-12 py-6">
+        <PageHeader
+                title={t.title}
+                subtitle={t.subtitle}
+                badgeText={t.badge}
+                badgeVariant="amber"
+        />
+
+        <div class="glow-card p-12 text-center max-w-2xl mx-auto space-y-6 my-12">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-3xl">
+                ⚙️
+            </div>
+
+            <div class="space-y-2">
+                <h2 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">
+                    {t.heading}
+                </h2>
+                <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    {t.description}
+                </p>
+            </div>
+
+            <div class="pt-2">
+                <a
+                        href={`/${validLang}/projects`}
+                        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-semibold text-xs hover:opacity-90 transition shadow-sm"
+                >
+                    {t.btn} →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <Footer slot="footer" text="Denys Skobalo. Engineering DevLog." />
+</BaseLayout>

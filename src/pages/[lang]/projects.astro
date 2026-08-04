@@ -30,8 +30,9 @@ const t = projectsUi[validLang];
             {MOCK_PROJECTS.map((project) => (
                     <ProjectCard
                             project={project}
-                            visitText={t.visit_btn}
-                            codeText={t.code_btn}
+                            currentLang={validLang}
+                            visitText={t.demo_link}
+                            codeText={t.github_link}
                     />
             ))}
         </div>
