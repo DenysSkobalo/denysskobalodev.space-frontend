@@ -4,7 +4,12 @@ export const onRequest = defineMiddleware((context, next) => {
     const { pathname } = context.url;
 
     if (pathname === '/' || pathname === '') {
-        return context.redirect('/en', 302);
+        return new Response(null, {
+            status: 302,
+            headers: {
+                'Location': '/en',
+            },
+        });
     }
 
     if (pathname === '/login' || pathname.startsWith('/api/')) {
