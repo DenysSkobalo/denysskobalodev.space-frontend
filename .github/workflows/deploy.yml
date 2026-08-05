@@ -40,6 +40,6 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: 'denysskobalodev-space-frontend'
-          directory: './dist'
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          projectName: 'denysskobalodev-space-frontend'
+          directory: './dist/client'
