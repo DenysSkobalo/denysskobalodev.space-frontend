@@ -3,6 +3,10 @@ import { defineMiddleware } from 'astro:middleware';
 export const onRequest = defineMiddleware((context, next) => {
     const { pathname } = context.url;
 
+    if (pathname === '/' || pathname === '') {
+        return context.redirect('/en', 302);
+    }
+
     if (pathname === '/login' || pathname.startsWith('/api/')) {
         return next();
     }
