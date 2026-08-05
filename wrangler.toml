@@ -1,17 +1,7 @@
 name = "denysskobalodev-space"
-main = "./dist"
 compatibility_date = "2026-03-01"
 compatibility_flags = ["nodejs_compat"]
 
 [[kv_namespaces]]
 binding = "SESSION_KV"
 id = "c7a3679d3e0c4e88bf76e694e973faaa"
-
-#[[d1_databases]]
-#binding = "DB"
-#database_name = "denysskobalodev-db"
-#database_id = ""
-
-# [[r2_buckets]]
-# binding = "STORAGE"
-# bucket_name = "denysskobalodev-assets"

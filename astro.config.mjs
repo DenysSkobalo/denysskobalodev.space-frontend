@@ -17,9 +17,6 @@ export default defineConfig({
   }),
   vite: {
     plugins: [tailwindcss()],
-    build: {
-      ssr: false,
-    },
   },
   integrations: [svelte()]
 });
