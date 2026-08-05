@@ -8,6 +8,8 @@ import { careerUi, CAREER_EXPERIENCE, EDUCATION_ITEMS } from '@/i18n/careerUi';
 import { SOCIAL_CHANNELS } from '@/i18n/socialsUi';
 import { getI18nStaticPaths, getValidLocale } from '@/utils/i18n';
 
+export const prerender = true;
+
 export const getStaticPaths = getI18nStaticPaths;
 
 const { lang } = Astro.params;
