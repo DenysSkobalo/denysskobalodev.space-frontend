@@ -2,5 +2,5 @@
 export const prerender = true;
 import { DEFAULT_LOCALE } from '@/i18n/locales';
 
-return Astro.redirect(`/${DEFAULT_LOCALE}`);
+return Astro.redirect(`/${DEFAULT_LOCALE}`, 302);
 ---
